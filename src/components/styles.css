@@ -1,0 +1,86 @@
+.JobCard {
+	padding: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	background-color: #fff;
+	color: #000;
+}
+.button {
+	width: 100%;
+	padding: 0.5rem;
+	cursor: pointer;
+	border: none;
+	background: none;
+	outline: none;
+	font-size: 1rem;
+	font-weight: 500;
+	border-radius: 0.5rem;
+}
+.posted-date {
+	width: max-content;
+	border: 1px solid #ccc;
+	border-radius: 0.5rem;
+	cursor: default;
+	color: #888;
+}
+.card-content {
+	display: flex;
+	gap: 0.5rem;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.logo {
+	height: 2.5rem;
+	width: 2.5rem;
+}
+.name,
+.salary,
+.experience {
+	color: #888;
+}
+.job-details {
+	display: flex;
+	flex-direction: column;
+}
+.card-header {
+	gap: 1rem;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+.about {
+	font-weight: 500;
+}
+.company {
+	font-size: 1.25rem;
+}
+
+.apply {
+	margin-bottom: 0.25rem;
+	background-color: rgb(24, 172, 24);
+}
+.referral {
+	color: #fff;
+	background-color: rgb(93, 93, 224);
+}
+
+.text-container {
+	max-height: 100px;
+	overflow: hidden;
+	position: relative;
+}
+.toggle-button {
+	width: max-content;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	color: rgb(93, 93, 224);
+}
+.text-expanded {
+	color: #000;
+	filter: none;
+}
+.blurred {
+	color: #ccc;
+	filter: blur(3px);
+}
