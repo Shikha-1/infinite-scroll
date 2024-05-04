@@ -1,0 +1,20 @@
+.Filter {
+	position: relative;
+	padding: 0.25rem;
+	border: 1px solid #ccc;
+}
+.filter-input {
+	min-width: 100px;
+	border: none;
+	outline: none;
+	border-right: 1px solid #ccc;
+}
+.active {
+	border: 1px solid #000;
+}
+.icon {
+	color: #ccc;
+}
+.icon-active {
+	color: #000;
+}

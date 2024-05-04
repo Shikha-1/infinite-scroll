@@ -1,0 +1,12 @@
+.OptionList {
+	max-height: 250px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	position: absolute;
+}
+.option {
+	padding: 0.25rem;
+}
+.option:hover {
+	background-color: #ccc;
+}
