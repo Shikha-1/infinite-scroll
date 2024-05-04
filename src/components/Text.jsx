@@ -5,27 +5,30 @@ import Button from './Button';
 const Text = memo(function Text({ text }) {
 	const [isExpanded, setIsExpanded] = useState(false);
 	const handleClick = () => {
-		setIsExpanded(true);
+		setIsExpanded(!isExpanded);
 	};
-	const textArr = text?.split('\n') ?? [];
+
+	const textArr = text?.split(' ') ?? [];
+	const containerClassName =
+		textArr.length > 15 && !isExpanded
+			? 'text-container'
+			: 'text-container-expanded';
 	return (
 		<>
-			<div className='text-container'>
+			<div className={containerClassName}>
 				{textArr?.map((line, index) => (
 					<span
 						key={index}
-						className={index >= 0 && !isExpanded ? 'blurred' : 'text-expanded'}
+						className={index > 15 && !isExpanded ? 'blurred' : 'text-expanded'}
 					>
-						{line}
+						{line + ' '}
 					</span>
 				))}
-				{!isExpanded && (
-					<Button
-						text='...See More'
-						onClick={handleClick}
-						className='toggle-button'
-					/>
-				)}
+				<Button
+					text={`...See ${isExpanded ? 'Less' : 'More'}`}
+					onClick={handleClick}
+					className='toggle-button'
+				/>
 			</div>
 		</>
 	);

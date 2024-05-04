@@ -1,32 +1,59 @@
-import { useMemo } from 'react';
-import { useFetch, createRequestOptions } from './hooks/useFetch';
+import { useEffect, useRef, useCallback } from 'react';
+import { createRequestOptions } from './hooks/createRequestOptions.js';
+import { useFetchData } from './hooks/useFetchData.js';
+import { useIntersectionObserver } from './hooks/useIntersectionObserver.js';
 import JobCard from './components/JobCard.jsx';
 import './App.css';
 
 const App = () => {
-	const requestOptions = useMemo(() => createRequestOptions(8, 0), []);
+	const { loading, error, postData, fetchData, page, totalPageCount } =
+		useFetchData();
 
-	const { data, loading, error } = useFetch(
-		'https://api.weekday.technology/adhoc/getSampleJdJSON',
-		requestOptions
+	const observerCallback = useCallback(
+		([entry]) => {
+			if (entry.isIntersecting && !loading && !error) {
+				const newPage = page + 1;
+				if (newPage <= totalPageCount) {
+					const newRequestOptions = createRequestOptions(8, newPage);
+					fetchData(newRequestOptions, newPage);
+				}
+			}
+		},
+		[loading, error, fetchData, page, totalPageCount]
 	);
 
-	if (loading) {
-		return <div>Loading...</div>;
-	}
+	const observerOptions = {
+		threshold: 0.5
+	};
 
-	if (error) {
-		return <div>Error: {error.message}</div>;
-	}
+	const sentinelRef = useRef(null);
+	const observer = useIntersectionObserver(observerCallback, observerOptions);
+
+	useEffect(() => {
+		if (sentinelRef?.current) {
+			observer?.observe(sentinelRef?.current);
+		}
+		return () => {
+			if (sentinelRef.current) {
+				observer?.unobserve(sentinelRef?.current);
+			}
+		};
+	}, [observer]);
 
 	return (
 		<div className='App'>
-			{data.jdList.map((item) => (
+			{postData?.map((item) => (
 				<JobCard
 					data={item}
-					key={item.jdUid}
+					key={item?.jdUid}
 				/>
 			))}
+			<div
+				ref={sentinelRef}
+				style={{ height: '10px', background: 'transparent' }}
+			/>
+			{loading && <div>Loading...</div>}
+			{error && <div>Error: {error?.message ?? 'Something went wrong!'}</div>}
 		</div>
 	);
 };

@@ -1,4 +1,5 @@
 .JobCard {
+	width: 300px;
 	padding: 0.5rem;
 	border: 1px solid #ccc;
 	border-radius: 0.5rem;
@@ -69,11 +70,17 @@
 	overflow: hidden;
 	position: relative;
 }
+.text-container-expanded {
+	max-height: max-content;
+	overflow: auto;
+	position: relative;
+}
 .toggle-button {
 	width: max-content;
 	position: absolute;
 	bottom: 0;
 	right: 0;
+	background-color: #fff;
 	color: rgb(93, 93, 224);
 }
 .text-expanded {
