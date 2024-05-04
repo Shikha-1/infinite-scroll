@@ -3,6 +3,7 @@ import { createRequestOptions } from './hooks/createRequestOptions.js';
 import { useFetchData } from './hooks/useFetchData.js';
 import { useIntersectionObserver } from './hooks/useIntersectionObserver.js';
 import JobCard from './components/JobCard.jsx';
+import Loader from './components/Loader/index.jsx';
 import './App.css';
 
 const App = () => {
@@ -11,7 +12,12 @@ const App = () => {
 
 	const observerCallback = useCallback(
 		([entry]) => {
-			if (entry.isIntersecting && !loading && !error) {
+			if (
+				entry?.isIntersecting &&
+				!loading &&
+				!error &&
+				page <= totalPageCount
+			) {
 				const newPage = page + 1;
 				if (newPage <= totalPageCount) {
 					const newRequestOptions = createRequestOptions(8, newPage);
@@ -34,7 +40,7 @@ const App = () => {
 			observer?.observe(sentinelRef?.current);
 		}
 		return () => {
-			if (sentinelRef.current) {
+			if (sentinelRef?.current) {
 				observer?.unobserve(sentinelRef?.current);
 			}
 		};
@@ -52,7 +58,7 @@ const App = () => {
 				ref={sentinelRef}
 				style={{ height: '10px', background: 'transparent' }}
 			/>
-			{loading && <div>Loading...</div>}
+			{loading && <Loader />}
 			{error && <div>Error: {error?.message ?? 'Something went wrong!'}</div>}
 		</div>
 	);

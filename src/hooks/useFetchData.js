@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { createRequestOptions } from "./createRequestOptions";
 
+const URL = 'https://api.weekday.technology/adhoc/getSampleJdJSON';
+
 export const useFetchData = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -8,26 +10,22 @@ export const useFetchData = () => {
     const [page, setPage] = useState(0);
     const [totalPageCount, setTotalPageCount] = useState(0)
 
-    const fetchData = useCallback((options, newPage) => {
+    const fetchData = useCallback(async (newOptions, newPage) => {
         setLoading(true);
-        fetch('https://api.weekday.technology/adhoc/getSampleJdJSON', options)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setTotalPageCount(data?.totalCount ?? 0)
-                setPostData((prevData) => [...prevData, ...(data?.jdList ?? [])]);
-                setPage(newPage);
-            })
-            .catch((error) => {
-                setError(error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        try {
+            const response = await fetch(URL, newOptions);
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+            const data = await response.json();
+            setTotalPageCount(data?.totalCount ?? 0);
+            setPostData((prevData) => [...prevData, ...(data?.jdList ?? [])]);
+            setPage(newPage);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
     useEffect(() => {

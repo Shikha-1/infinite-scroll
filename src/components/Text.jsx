@@ -11,8 +11,8 @@ const Text = memo(function Text({ text }) {
 	const textArr = text?.split(' ') ?? [];
 	const containerClassName =
 		textArr.length > 15 && !isExpanded
-			? 'text-container'
-			: 'text-container-expanded';
+			? 'TextContainer'
+			: 'TextContainerExpanded';
 	return (
 		<>
 			<div className={containerClassName}>
@@ -33,8 +33,6 @@ const Text = memo(function Text({ text }) {
 		</>
 	);
 });
-
-Text.displayName = 'Text';
 
 Text.propTypes = {
 	text: PropTypes.string.isRequired

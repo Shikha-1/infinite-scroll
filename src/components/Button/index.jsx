@@ -1,17 +1,19 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
-function Button(props) {
+import './styles.css';
+const Button = memo(function Button(props) {
 	const { onClick, className, component, text } = props;
 
 	return (
 		<button
 			onClick={onClick || (() => null)}
-			className={`button ${className || ''}`}
+			className={`Button ${className || ''}`}
 		>
 			{component && <span>{component}</span>}
 			{text}
 		</button>
 	);
-}
+});
 
 Button.propTypes = {
 	text: PropTypes.string.isRequired,

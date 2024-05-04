@@ -20,7 +20,7 @@ const JobCard = ({ data }) => {
 	} = data;
 
 	const onApply = () => {
-		window.open(jdLink, '_blank');
+		if (jdLink) window.open(jdLink, '_blank');
 	};
 
 	return (

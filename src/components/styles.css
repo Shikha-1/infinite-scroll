@@ -1,22 +1,12 @@
 .JobCard {
-	width: 300px;
+	width: 346px;
 	padding: 0.5rem;
 	border: 1px solid #ccc;
 	border-radius: 0.5rem;
 	background-color: #fff;
 	color: #000;
 }
-.button {
-	width: 100%;
-	padding: 0.5rem;
-	cursor: pointer;
-	border: none;
-	background: none;
-	outline: none;
-	font-size: 1rem;
-	font-weight: 500;
-	border-radius: 0.5rem;
-}
+
 .posted-date {
 	width: max-content;
 	border: 1px solid #ccc;
@@ -65,12 +55,12 @@
 	background-color: rgb(93, 93, 224);
 }
 
-.text-container {
+.TextContainer {
 	max-height: 100px;
 	overflow: hidden;
 	position: relative;
 }
-.text-container-expanded {
+.TextContainerExpanded {
 	max-height: max-content;
 	overflow: auto;
 	position: relative;
@@ -82,6 +72,7 @@
 	right: 0;
 	background-color: #fff;
 	color: rgb(93, 93, 224);
+	padding: 0;
 }
 .text-expanded {
 	color: #000;
